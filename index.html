@@ -11,22 +11,22 @@
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <div class="grain"></div>
   <div class="cursor-dot"></div>
 
   <header class="nav" id="nav">
-    <a class="brand" href="#top" aria-label="ZQORB home"><span class="dot"></span>ZQORB</a>
+    <a class="brand" href="/" aria-label="ZQORB home"><span class="dot"></span>ZQORB</a>
     <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#work">Work</a>
-      <a href="#ecosystem">Ecosystem</a>
-      <a href="#ventures">Ventures</a>
-      <a href="#courses">Courses</a>
-      <a href="#founder">About</a>
+      <a href="/#work">Work</a>
+      <a href="/ventures/">Ventures</a>
+      <a href="/#technology-card">Technology</a>
+      <a href="/#courses">Education</a>
+      <a href="/#founder">About</a>
     </nav>
-    <a class="nav-contact magnetic" href="#contact">Contact <span>↗</span></a>
+    <a class="nav-contact magnetic" href="/#contact">Contact <span>↗</span></a>
     <button class="menu" id="menu" aria-label="Open menu"><span></span><span></span></button>
   </header>
 
@@ -75,7 +75,7 @@
           <div>
             <h3>TECHNOLOGY</h3>
             <p>Tools, systems and intelligent products built around useful technology.</p>
-            <b>EXPLORE ↗</b>
+            <a class="eco-explore" href="/#work">EXPLORE ↗</a>
           </div>
         </article>
 
@@ -89,7 +89,7 @@
           <div>
             <h3>GAMES</h3>
             <p>Original worlds, mechanics and stories designed to be experienced.</p>
-            <b>EXPLORE ↗</b>
+            <a class="eco-explore" href="/#work">EXPLORE ↗</a>
           </div>
         </article>
 
@@ -103,7 +103,7 @@
           <div>
             <h3>VENTURES</h3>
             <p>Long-term ideas that can grow into independent businesses.</p>
-            <b>EXPLORE ↗</b>
+            <a class="eco-explore" href="/ventures/">EXPLORE ↗</a>
           </div>
         </article>
 
@@ -117,7 +117,7 @@
           <div>
             <h3>EDUCATION</h3>
             <p>Practical learning built around thinking, making and shipping.</p>
-            <b>EXPLORE ↗</b>
+            <a class="eco-explore" href="/#courses">EXPLORE ↗</a>
           </div>
         </article>
       </div>
@@ -138,10 +138,11 @@
         <div class="workspace-top">
           <div>
             <span class="section-label">PROJECT WORKSPACE</span>
-            <h2 id="workspaceTitle">SELECT A PROJECT.</h2>
+            <h2 id="workspaceTitle">DETENTION<span>THE NEGATIVITY CURSE</span></h2>
           </div>
-          <button class="close-workspace" id="closeWorkspace">CLOSE ×</button>
+          <p style="max-width:280px;font-size:13px;color:var(--ink-dim);line-height:1.55">A quick look at how each project is organized. Visit a project's own page for the full picture.</p>
         </div>
+        <div class="ws-tabs" id="workspaceTabs"></div>
         <div class="workspace-grid">
           <div class="workspace-media" id="workspaceMedia">
             <div class="media-placeholder"><span>PROJECT MEDIA</span><small>Add images inside the project /images folder.</small></div>
@@ -151,7 +152,7 @@
             <p id="workspaceDescription"></p>
             <div class="tag-list" id="workspaceTags"></div>
             <div class="workspace-actions">
-              <a id="workspaceFolder" class="button magnetic" href="#" target="_blank" rel="noopener">PROJECT FOLDER ↗</a>
+              <a id="workspaceOpenPage" class="button magnetic" href="/projects/detention/#workspace">OPEN PROJECT PAGE ↗</a>
             </div>
           </div>
         </div>
@@ -240,13 +241,14 @@
   <footer>
     <div class="brand">ZQORB</div>
     <div>GAMES · VENTURES · TECHNOLOGY · EDUCATION</div>
-    <div>© <span id="year"></span> ZQORB</div>
+    <div>© <span data-year></span> ZQORB</div>
   </footer>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#work">Work</a><a href="#ecosystem">Ecosystem</a><a href="#ventures">Ventures</a><a href="#courses">Courses</a><a href="#founder">About</a><a href="#contact">Contact ↗</a>
+    <a href="/#work">Work</a><a href="/ventures/">Ventures</a><a href="/#technology-card">Technology</a><a href="/#courses">Education</a><a href="/#founder">About</a><a href="/#contact">Contact ↗</a>
   </div>
 
-  <script src="script.js"></script>
+  <script src="/common.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>

@@ -7,22 +7,21 @@
     {"id":"build-mode","number":"02","title":"BUILD MODE","subtitle":"AI × CODE × AUTOMATION × SAAS","category":"EDUCATION / COURSE","status":"BUILDING","description":"A practical learning system designed to move students from understanding technology to actually building with it.","tags":["AI","CODE","SAAS","AUTOMATION"],"folder":"projects/build-mode/","image":"projects/build-mode/images/hero.jpg"},
     {"id":"neuronix","number":"03","title":"NEURONIX","subtitle":"PERSONAL AI / TECHNOLOGY","category":"TECHNOLOGY / R&D","status":"EXPLORATION","description":"A personal AI concept focused on a compact, synchronized intelligence layer across phone and computer.","tags":["AI","SYSTEMS","R&D","PRODUCT"],"folder":"projects/neuronix/","image":"projects/neuronix/images/hero.jpg"}
   ];
+
   const grid = document.getElementById("projectGrid");
-  const workspace = document.getElementById("workspace");
+  const tabs = document.getElementById("workspaceTabs");
   const title = document.getElementById("workspaceTitle");
   const status = document.getElementById("workspaceStatus");
   const description = document.getElementById("workspaceDescription");
-  const tags = document.getElementById("workspaceTags");
+  const tagsEl = document.getElementById("workspaceTags");
   const media = document.getElementById("workspaceMedia");
-  const folder = document.getElementById("workspaceFolder");
+  const openPage = document.getElementById("workspaceOpenPage");
   const docList = document.getElementById("docList");
   const imageList = document.getElementById("imageList");
 
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // Hand-built visual identity per project — one composition each,
-  // not a shared gradient template. Kept as inline SVG so the site
-  // stays dependency-free and fast.
+  // Hand-built visual identity per project — one composition each, not
+  // a shared gradient template. Kept as inline SVG so the site stays
+  // dependency-free and fast.
   const ART = {
     detention: `
       <svg viewBox="0 0 400 540" preserveAspectRatio="xMidYMid slice" role="img" aria-label="">
@@ -75,8 +74,10 @@
   let projects = [];
 
   function renderProjects(){
+    // Cards are real links to each project's own page — selecting one
+    // navigates there directly, it does not open an in-page panel.
     grid.innerHTML = projects.map((p, i) => `
-      <article class="project-card reveal ${p.id==='build-mode' ? 'lav pc-2' : (i===0?'pc-1':'pc-3')}" data-id="${p.id}" style="--delay:${i*90}ms">
+      <a class="project-card reveal ${p.id==='build-mode' ? 'lav pc-2' : (i===0?'pc-1':'pc-3')}" href="/projects/${p.id}/" style="--delay:${i*90}ms">
         <div class="project-visual">${ART[p.id] || ""}</div>
         <div class="project-overlay">
           <div class="project-index">${p.number} / ${p.category}</div>
@@ -87,18 +88,40 @@
           </div>
         </div>
         <div class="project-arrow">↗</div>
-      </article>
+      </a>
     `).join("");
+    grid.querySelectorAll(".project-card").forEach(card => window.ZQORB.observe(card));
+  }
 
-    grid.querySelectorAll(".project-card").forEach(card => {
-      card.addEventListener("click", () => openProject(card.dataset.id));
-      observer.observe(card);
+  function renderTabs(){
+    tabs.innerHTML = projects.map((p,i) => `<button class="ws-tab${i===0?' active':''}" data-id="${p.id}">${p.number} ${p.title}</button>`).join("");
+    tabs.querySelectorAll(".ws-tab").forEach(btn=>{
+      btn.addEventListener("click", () => {
+        tabs.querySelectorAll(".ws-tab").forEach(b=>b.classList.toggle("active", b===btn));
+        showProject(btn.dataset.id);
+      });
     });
+  }
+
+  function showProject(id){
+    const p = projects.find(x=>x.id===id);
+    if(!p) return;
+    title.innerHTML = `${p.title}<span>${p.subtitle}</span>`;
+    status.textContent = `${p.status} · ${p.category}`;
+    description.textContent = p.description;
+    tagsEl.innerHTML = p.tags.map(t=>`<span>${t}</span>`).join("");
+    openPage.href = `/projects/${p.id}/#workspace`;
+    media.innerHTML = `<div class="media-placeholder"><span>PROJECT MEDIA</span><small>Add hero.jpg to ${p.folder}images/</small></div>`;
+    const img = new Image();
+    img.onload = () => { media.innerHTML = ""; img.alt = `${p.title} project`; media.appendChild(img); };
+    img.src = p.image;
+    docList.innerHTML = `<span class="empty">Preview only — permanent files belong in ${p.folder}documents/</span>`;
+    imageList.innerHTML = `<span class="empty">Preview only — permanent images belong in ${p.folder}images/</span>`;
   }
 
   async function loadProjects(){
     try{
-      const res = await fetch("projects.json", {cache:"no-store"});
+      const res = await fetch("/projects.json", {cache:"no-store"});
       if(!res.ok) throw new Error("bad response");
       projects = await res.json();
     }catch(err){
@@ -106,84 +129,10 @@
       projects = FALLBACK_PROJECTS;
     }
     renderProjects();
+    renderTabs();
+    if(projects.length) showProject(projects[0].id);
+    window.ZQORB.initWorkspaceUploads();
   }
-
-  function openProject(id){
-    const p = projects.find(x=>x.id===id);
-    if(!p) return;
-    title.innerHTML = `${p.title}<br><span>${p.subtitle}</span>`;
-    status.textContent = `${p.status} · ${p.category}`;
-    description.textContent = p.description;
-    tags.innerHTML = p.tags.map(t=>`<span>${t}</span>`).join("");
-    folder.href = p.folder;
-    media.innerHTML = "";
-    const img = new Image();
-    img.onload = () => { img.alt = `${p.title} project`; media.appendChild(img); };
-    img.onerror = () => {
-      media.innerHTML = `<div class="media-placeholder"><span>PROJECT MEDIA</span><small>Add hero.jpg to ${p.folder}images/</small></div>`;
-    };
-    img.src = p.image;
-    workspace.classList.add("open");
-    workspace.scrollIntoView({behavior:"smooth",block:"start"});
-    docList.innerHTML = `<span class="empty">Local preview area — permanent files belong in ${p.folder}documents/</span>`;
-    imageList.innerHTML = `<span class="empty">Local preview area — permanent images belong in ${p.folder}images/</span>`;
-  }
-
-  document.getElementById("closeWorkspace").addEventListener("click",()=>{
-    workspace.classList.remove("open");
-  });
-
-  document.querySelectorAll(".file-input").forEach(input=>{
-    input.addEventListener("change",()=>{
-      const files = [...input.files];
-      const target = input.dataset.kind === "docs" ? docList : imageList;
-      if(!files.length) return;
-      target.innerHTML = "";
-      files.forEach(file=>{
-        if(input.dataset.kind === "images" && file.type.startsWith("image/")){
-          const url = URL.createObjectURL(file);
-          const img = document.createElement("img");
-          img.src=url; img.className="image-thumb"; img.alt=file.name;
-          const row=document.createElement("div"); row.className="file-item";
-          row.append(img, document.createTextNode(file.name));
-          target.appendChild(row);
-        }else{
-          const row=document.createElement("div"); row.className="file-item";
-          row.textContent=file.name;
-          target.appendChild(row);
-        }
-      });
-    });
-  });
-
-  const nav = document.getElementById("nav");
-  window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});
-
-  const observer = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("visible"); });
-  },{threshold:.12});
-  document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
   loadProjects();
-
-  const menu = document.getElementById("menu");
-  const mobile = document.getElementById("mobileMenu");
-  menu.addEventListener("click",()=>mobile.classList.toggle("open"));
-  mobile.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>mobile.classList.remove("open")));
-
-  // Subtle pointer interaction — desktop only, respects reduced motion.
-  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (matchMedia("(pointer:fine)").matches && !reduceMotion){
-    const dot=document.querySelector(".cursor-dot");
-    window.addEventListener("pointermove",e=>{
-      dot.style.left=e.clientX+"px"; dot.style.top=e.clientY+"px";
-    });
-    document.querySelectorAll(".magnetic").forEach(el=>{
-      el.addEventListener("pointermove",e=>{
-        const r=el.getBoundingClientRect(), x=(e.clientX-r.left-r.width/2)*.12, y=(e.clientY-r.top-r.height/2)*.12;
-        el.style.transform=`translate(${x}px,${y}px)`;
-      });
-      el.addEventListener("pointerleave",()=>el.style.transform="");
-    });
-  }
 })();
