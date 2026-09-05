@@ -78,7 +78,11 @@
     // navigates there directly, it does not open an in-page panel.
     grid.innerHTML = projects.map((p, i) => `
       <a class="project-card reveal ${p.id==='build-mode' ? 'lav pc-2' : (i===0?'pc-1':'pc-3')}" href="/projects/${p.id}/" style="--delay:${i*90}ms">
-        <div class="project-visual">${ART[p.id] || ""}</div>
+        <div class="project-visual">
+  ${p.id === "detention"
+    ? `<img src="projects/detention/images/detention-logo.png" alt="DETENTION logo">`
+    : ART[p.id] || ""}
+</div>
         <div class="project-overlay">
           <div class="project-index">${p.number} / ${p.category}</div>
           <div>
