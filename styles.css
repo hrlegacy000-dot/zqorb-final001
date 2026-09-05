@@ -281,3 +281,12 @@ footer{padding:34px 4vw;display:flex;justify-content:space-between;gap:20px;bord
  .hero-title{font-size:52px}
  .founder-grid h2{font-size:48px}
 }
+
+.project-visual img {
+  width: 70%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
