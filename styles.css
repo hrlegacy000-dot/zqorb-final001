@@ -96,6 +96,51 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
 .eco-lav .eco-icon{color:#6a5fa0}
 .eco-lav span.num,.eco-lav p{color:#5b5470}
 
+/* ---------- ecosystem card colors ---------- */
+
+.eco-card:nth-child(1) {
+  background: #202023; /* Technology */
+  color: #F4F3EF;
+}
+
+.eco-card:nth-child(2) {
+  background: #181818; /* Games */
+  color: #F4F3EF;
+}
+
+.eco-card:nth-child(3) {
+  background: #29282C; /* Ventures */
+  color: #F4F3EF;
+}
+
+.eco-card:nth-child(4) {
+  background: #D2CCD6; /* Education */
+  color: #181818;
+}
+
+/* Text contrast */
+
+.eco-card:nth-child(1) p,
+.eco-card:nth-child(2) p,
+.eco-card:nth-child(3) p {
+  color: #9B999D;
+}
+
+.eco-card:nth-child(1) span.num,
+.eco-card:nth-child(2) span.num,
+.eco-card:nth-child(3) span.num {
+  color: #9B999D;
+}
+
+.eco-card:nth-child(4) p,
+.eco-card:nth-child(4) span.num {
+  color: #5B5470;
+}
+
+.eco-card:nth-child(4) .eco-icon {
+  color: #6A5FA0;
+}
+
 /* ---------- selected work ---------- */
 .work{background:var(--bg)}
 .section-head{display:grid;grid-template-columns:1fr .4fr;gap:7vw;align-items:end;margin-bottom:64px}
