@@ -80,7 +80,7 @@
       <a class="project-card reveal ${p.id==='build-mode' ? 'lav pc-2' : (i===0?'pc-1':'pc-3')}" href="/projects/${p.id}/" style="--delay:${i*90}ms">
         <div class="project-visual">
   ${p.id === "detention"
-    ? `<img src="projects/detention/images/detention-logo.png" alt="DETENTION logo">`
+    ? `<img class="detention-logo" src="/projects/detention/images/detention-logo.png" alt="DETENTION logo">
     : ART[p.id] || ""}
 </div>
         <div class="project-overlay">
