@@ -96,51 +96,6 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
 .eco-lav .eco-icon{color:#6a5fa0}
 .eco-lav span.num,.eco-lav p{color:#5b5470}
 
-/* ---------- ecosystem card colors ---------- */
-
-.eco-card:nth-child(1) {
-  background: #202023; /* Technology */
-  color: #F4F3EF;
-}
-
-.eco-card:nth-child(2) {
-  background: #181818; /* Games */
-  color: #F4F3EF;
-}
-
-.eco-card:nth-child(3) {
-  background: #29282C; /* Ventures */
-  color: #F4F3EF;
-}
-
-.eco-card:nth-child(4) {
-  background: #D2CCD6; /* Education */
-  color: #181818;
-}
-
-/* Text contrast */
-
-.eco-card:nth-child(1) p,
-.eco-card:nth-child(2) p,
-.eco-card:nth-child(3) p {
-  color: #9B999D;
-}
-
-.eco-card:nth-child(1) span.num,
-.eco-card:nth-child(2) span.num,
-.eco-card:nth-child(3) span.num {
-  color: #9B999D;
-}
-
-.eco-card:nth-child(4) p,
-.eco-card:nth-child(4) span.num {
-  color: #5B5470;
-}
-
-.eco-card:nth-child(4) .eco-icon {
-  color: #6A5FA0;
-}
-
 /* ---------- selected work ---------- */
 .work{background:var(--bg)}
 .section-head{display:grid;grid-template-columns:1fr .4fr;gap:7vw;align-items:end;margin-bottom:64px}
@@ -223,7 +178,8 @@ code{font-family:"DM Mono",monospace}
 .founder .section-label{color:var(--ink-on-panel-dim)}
 .founder-grid{display:grid;grid-template-columns:.62fr 1fr;gap:5vw;margin-top:50px;align-items:start}
 .founder-visual{position:relative;aspect-ratio:3/4;background:var(--surface);overflow:hidden}
-.founder-visual svg{width:100%;height:100%}
+.founder-portrait{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:saturate(.92) contrast(1.04);transform:scale(1.025);transition:transform .8s var(--ease)}
+.founder-visual:hover .founder-portrait{transform:scale(1.055)}
 .founder-swatch{position:absolute;top:16px;right:16px;width:38px;height:38px;background:var(--lavender-soft);opacity:.9}
 .founder-swatch svg{position:absolute;inset:0}
 .founder-grid h2{font-family:"Clash Display",sans-serif;font-size:clamp(46px,7.2vw,100px);line-height:.92;letter-spacing:-.02em;margin:0;font-weight:600}
@@ -325,18 +281,4 @@ footer{padding:34px 4vw;display:flex;justify-content:space-between;gap:20px;bord
  .workspace-top h2{font-size:44px}
  .hero-title{font-size:52px}
  .founder-grid h2{font-size:48px}
-}
-
-.project-card .project-visual .detention-logo {
-  width: 70%;
-  max-width: 320px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: auto;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.project-card:hover .project-visual .detention-logo {
-  transform: translateY(-8px) scale(1.03);
 }
